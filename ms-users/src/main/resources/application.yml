@@ -1,0 +1,30 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: ms-users
+
+  datasource:
+    url: jdbc:mysql://localhost:3309/bd_drink
+    username: user
+    password: pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # O "validate", "create", etc.
+    show-sql: true
+    properties:
+      hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+    # (Opcional) Timezone handling for MySQL
+    jackson:
+    time-zone: UTC
+
+# (Opcional) Logging de SQL
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
