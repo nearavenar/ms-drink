@@ -1,17 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-    <Appenders>
-        <RollingFile name="ProdFile" fileName="logs/prod-app.log"
-                     filePattern="logs/prod-app-%d{yyyy-MM-dd}.log.gz">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{1}] - %msg%n"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
-            </Policies>
-        </RollingFile>
-    </Appenders>
-    <Loggers>
-        <Root level="WARN">
-            <AppenderRef ref="ProdFile"/>
-        </Root>
-    </Loggers>
-</Configuration>
+<included>
+    <property name="LOG_FILE" value="C:\logs\ms-users\prod\ms-users.log"/>
+
+    <!-- Sin consola en producción normalmente (opcional) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/prod-app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="WARN">
+        <appender-ref ref="FILE"/>
+    </root>
+</included>
