@@ -35,7 +35,7 @@ class UserServiceImplTest {
     void setUp() {
         userService = new UserServiceImpl(userRepository, rolRepository, new ModelMapper());
         List<Rol> roles = List.of(new Rol(1L, "User"));
-        mockUser = new User(1L, "nico", "12345", "nico@gmail.com", true, LocalDateTime.now(), roles);
+        mockUser = new User(1L, "nico", "12345", "nico@gmail.com", 'M',true, LocalDateTime.now(), roles);
     }
 
     @Test

@@ -23,6 +23,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id){
+        log.info("UserController.getUserById id: {}", id);
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -30,6 +31,7 @@ public class UserController {
 
     @GetMapping("/user/{name}")
     public ResponseEntity<UserDTO> getUserByName(@PathVariable String name){
+        log.info("UserController.getUserByName name: {}", name);
         return userService.getUserByName(name)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
