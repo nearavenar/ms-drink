@@ -24,7 +24,7 @@ class UserRepositoryTest {
     void findByName() {
         String id = "nico";
         List<Rol> roles = List.of(new Rol(1L, "User"));
-        User newUser = new User(1L, "nico", "12345", "nico@gmail.com", true, LocalDateTime.now(), roles);
+        User newUser = new User(1L, "nico", "12345", "nico@gmail.com", 'M',true, LocalDateTime.now(), roles);
 
         userRepository.save(newUser);
         Optional<User> user = userRepository.findByName(id);

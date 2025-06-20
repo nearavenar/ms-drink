@@ -22,6 +22,10 @@ public class User {
     private String password;
     @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private char gender;
+
     private boolean status;
     private LocalDateTime dateCreated;
 

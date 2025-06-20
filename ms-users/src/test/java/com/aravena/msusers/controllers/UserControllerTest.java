@@ -33,7 +33,7 @@ class UserControllerTest {
     @BeforeEach
     void setUp() {
         List<RolDTO> roles = List.of(new RolDTO(1L, "User"));
-        mockUser = new UserDTO(1L, "nico", "12345", "nico@gmail.com", true, LocalDateTime.now(), roles);
+        mockUser = new UserDTO(1L, "nico", "12345", "nico@gmail.com",'M', true, LocalDateTime.now(), roles);
     }
 
     @TestConfiguration

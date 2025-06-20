@@ -1,0 +1,26 @@
+server:
+  port: 7777
+
+
+spring:
+  application:
+    name: config-server
+
+  profiles:
+    active: defaul
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/nearavenar/ms-configs.git
+          default-label: main
+          clone-on-start: true
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: "${spring.application.name}:${random.value}"

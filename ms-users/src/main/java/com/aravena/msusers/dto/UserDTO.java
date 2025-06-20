@@ -16,6 +16,7 @@ public class UserDTO {
     private String name;
     private String password;
     private String email;
+    private char gender;
     private boolean status;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dateCreated;
