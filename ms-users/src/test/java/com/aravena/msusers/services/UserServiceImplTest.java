@@ -3,6 +3,7 @@ package com.aravena.msusers.services;
 import com.aravena.msusers.dto.UserDTO;
 import com.aravena.msusers.entities.Rol;
 import com.aravena.msusers.entities.User;
+import com.aravena.msusers.repositories.LoginUserRepository;
 import com.aravena.msusers.repositories.RolRepository;
 import com.aravena.msusers.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,13 +30,15 @@ class UserServiceImplTest {
     private UserRepository userRepository;
     @Mock
     private RolRepository rolRepository;
+    @Mock
+    private LoginUserRepository loginUserRepository;
     private User mockUser;
 
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(userRepository, rolRepository, new ModelMapper());
+        userService = new UserServiceImpl(userRepository, rolRepository, loginUserRepository, new ModelMapper());
         List<Rol> roles = List.of(new Rol(1L, "User"));
-        mockUser = new User(1L, "nico", "12345", "nico@gmail.com", 'M',true, LocalDateTime.now(), roles);
+        mockUser = new User(1L, "nico", "12345", "nico@gmail.com", 'M',true, LocalDateTime.now(),true, LocalDateTime.now(), roles);
     }
 
     @Test
@@ -49,7 +52,7 @@ class UserServiceImplTest {
 
     @Test
     void getUserByName() {
-        when(userRepository.findByName(anyString())).thenReturn(Optional.of(mockUser));
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
         Optional<UserDTO> result = userService.getUserByName("nico");
         assertTrue(result.isPresent());
         assertEquals(mockUser.getName(), result.get().getName());

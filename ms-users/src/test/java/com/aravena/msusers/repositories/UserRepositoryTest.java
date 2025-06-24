@@ -22,12 +22,12 @@ class UserRepositoryTest {
 
     @Test
     void findByName() {
-        String id = "nico";
+        String id = "nico@gmail.com";
         List<Rol> roles = List.of(new Rol(1L, "User"));
-        User newUser = new User(1L, "nico", "12345", "nico@gmail.com", 'M',true, LocalDateTime.now(), roles);
+        User newUser = new User(1L, "nico@gmail.com", "nico", "12345", 'M',true, LocalDateTime.now(),true, LocalDateTime.now(), roles);
 
         userRepository.save(newUser);
-        Optional<User> user = userRepository.findByName(id);
+        Optional<User> user = userRepository.findByEmail(id);
         assertTrue(user.isPresent());
         assertEquals(1L, user.get().getId());
         assertEquals("nico", user.get().getName());

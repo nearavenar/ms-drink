@@ -25,16 +25,17 @@
     <body>
         <div id="title" style="background-color: #81d9fc; color: #FFFFFF; padding: 1px;">
             <h1 th:text="${title}">Title</h1>
-            <p th:text="'Date: ' + ${fecha}"></p>
+            <p th:text="'Date: ' + ${date}"></p>
         </div>
         <div>
             <img th:src="${photo}" alt="photo" class="photo" style="width: 200px; height: 150px; border: 1px solid #ccc;"/>
         </div>
         <div id="user-info" style="background-color: #24c1ff; color: #FFFFFF; padding: 10px;">
-            <p>Name: <span th:text="${name}">Name</span></p>
-            <p th:text="${gender.toString() == 'M'} ? 'Gender: Male' : 'Gender: Female'"></p>
-            <p>Email: <span th:text="${email}">Email</span></p>
-            <p>Password: <span th:text="${password}">Password</span></p>
+            <p>Name: <span th:text="${user.name}">Name</span></p>
+            <p th:text="${user.gender.toString() == 'M'} ? 'Gender: Male' : 'Gender: Female'"></p>
+            <p>Email: <span th:text="${user.email}">Email</span></p>
+            <p>Password: <span th:text="${user.password}">Password</span></p>
+            <p>Date Created: <span th:text="${dateCreated}">Date Created</span></p>
         </div>
 
         <div id="user-roles">
@@ -46,7 +47,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="rol : ${roles}">
+                <tr th:each="rol : ${user.roles}">
                     <td th:text="${rol.id}">Id</td>
                     <td th:text="${rol.name}">Name</td>
                 </tr>

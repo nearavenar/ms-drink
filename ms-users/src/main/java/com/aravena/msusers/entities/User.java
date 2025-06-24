@@ -16,18 +16,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String email;
+
+    @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
-    private String email;
 
     @Column(nullable = false)
     private char gender;
 
-    private boolean status;
+    private boolean temporal = false;
     private LocalDateTime dateCreated;
+
+    private boolean status;
+    private LocalDateTime temporalDate;
 
     @ManyToMany
     @JoinTable(name = "user_roles",
