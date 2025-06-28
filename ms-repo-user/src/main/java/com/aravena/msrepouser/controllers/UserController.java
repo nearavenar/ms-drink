@@ -1,5 +1,6 @@
 package com.aravena.msrepouser.controllers;
 
+import com.aravena.msrepouser.models.LoginUser;
 import com.aravena.msrepouser.models.User;
 import com.aravena.msrepouser.services.UserService;
 import com.lowagie.text.DocumentException;
@@ -30,6 +31,7 @@ public class UserController {
     @GetMapping("/create-pdf/{id}")
     public ResponseEntity<byte[]> createReport(@PathVariable Long id) throws DocumentException, IOException {
         byte[] repo = userService.createReport(id);
+        //byte[] repo = userService.createCv();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
@@ -41,9 +43,15 @@ public class UserController {
                 .body(repo);
     }
 
-    @GetMapping("/send-email/{id}")
-    public String sendEmailNewPassword(@PathVariable Long id) throws MessagingException {
-            userService.sendEmailNewPassword(id);
+    @GetMapping("/send-email/{email}")
+    public String sendEmailNewPassword(@PathVariable String email) throws MessagingException {
+            userService.sendEmailNewPassword(email);
             return "email sender success";
+    }
+
+    @PostMapping("/unlock-user")
+    public String unlockUser(@RequestBody LoginUser loginUser) throws MessagingException {
+        userService.unlockUser(loginUser);
+        return "unlock user success";
     }
 }

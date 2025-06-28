@@ -48,7 +48,7 @@ class UserControllerTest {
     void getUserById() throws Exception {
         when(userService.getUserById(anyLong())).thenReturn(Optional.of(mockUser));
 
-        mockMvc.perform(get("/users/1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/users/find-by-id/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("nico")))
@@ -60,7 +60,7 @@ class UserControllerTest {
     void getUserByName() throws Exception {
         when(userService.getUserByName(anyString())).thenReturn(Optional.of(mockUser));
 
-        mockMvc.perform(get("/users/user/nico").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/users/find-by-user/nico@gmail.com").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", is("nico")))
