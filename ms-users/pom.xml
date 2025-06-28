@@ -97,6 +97,13 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
+		<!-- For test-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
