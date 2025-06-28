@@ -37,7 +37,7 @@ public class User {
     private LocalDateTime temporalDate;
 
     @ManyToMany
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "users_roles",
                 joinColumns = @JoinColumn(name = "user_id"),
                 inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private List<Rol> roles;
