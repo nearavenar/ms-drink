@@ -30,15 +30,18 @@ public class UserServiceImpl implements UserService {
     private final TemplateEngine templateEngine;
     private final JavaMailSender mailSender;
     private final String username;
+    //private final PdfRenderer pdfRenderer;
 
     public UserServiceImpl(UserRepository userRepository,
                            TemplateEngine templateEngine,
                            JavaMailSender mailSender,
+                           //PdfRenderer pdfRenderer,
                            @Value("${spring.mail.username}") String username) {
         this.userRepository = userRepository;
         this.templateEngine = templateEngine;
         this.mailSender = mailSender;
         this.username = username;
+        //this.pdfRenderer = pdfRenderer;
     }
 
     @Override
@@ -91,6 +94,39 @@ public class UserServiceImpl implements UserService {
 
         ITextRenderer renderer = new ITextRenderer();
         renderer.setDocumentFromString(html);
+        renderer.layout();
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            renderer.createPDF(outputStream);
+            //pdfRenderer.renderHtmlToPdf(html, outputStream);
+            return outputStream.toByteArray();
+        }
+    }
+
+    @Override
+    public byte[] createCv() throws IOException, DocumentException {
+        Context context = new Context();
+        context.setVariable("name", "Nicolás Aravena");
+        context.setVariable("profession", "Desarrollador Senior Java");
+        context.setVariable("email", "nicolas.aravena25@gmail.com");
+        context.setVariable("phone", "+56 9 5070 0929");
+        context.setVariable("linkedin", "https://www.linkedin.com/");
+        context.setVariable("github", "https://github.com/nearavenar");
+        context.setVariable("country", "");
+        context.setVariable("skill-one", "Spring Boot");
+        context.setVariable("skill-two", "Microservicios");
+        context.setVariable("skill-three", "PostgreSQL");
+
+        String html = templateEngine.process("cv-template", context);
+
+
+        ClassPathResource cssFile = new ClassPathResource("static/fonts/cv/css/css2.css");
+        String css = new String(cssFile.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+        String fullHtml = html.replaceFirst("(?i)<head>", "<head><style>" + css + "</style>");
+
+
+        ITextRenderer renderer = new ITextRenderer();
+        renderer.setDocumentFromString(fullHtml);
         renderer.layout();
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {

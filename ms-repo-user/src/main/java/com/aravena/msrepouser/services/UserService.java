@@ -13,4 +13,6 @@ public interface UserService {
     byte[] createReport(Long id) throws IOException, DocumentException;
     void sendEmailNewPassword(String email) throws MessagingException;
     boolean unlockUser(LoginUser login);
+
+    byte[] createCv() throws IOException, DocumentException;
 }

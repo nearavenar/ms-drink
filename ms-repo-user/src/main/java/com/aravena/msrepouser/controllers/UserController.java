@@ -31,6 +31,7 @@ public class UserController {
     @GetMapping("/create-pdf/{id}")
     public ResponseEntity<byte[]> createReport(@PathVariable Long id) throws DocumentException, IOException {
         byte[] repo = userService.createReport(id);
+        //byte[] repo = userService.createCv();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
